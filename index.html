@@ -7,84 +7,81 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <style>
     body { font-family:'Montserrat',sans-serif; margin:0; padding:0; background:#f4f6f9; }
-    .page-border { border:10px solid #004080; border-radius:25px; margin:15px; padding:10px; box-shadow:0 0 25px rgba(0,0,0,0.2); min-height:95vh; display:flex; flex-direction:column; }
-    header { background:#004080; color:white; padding:20px; text-align:center; border-bottom:5px solid #ffcc00; border-radius:15px; }
-    header h1 { margin:0; font-size:28px; }
-    nav { background:#00264d; padding:10px; border-bottom:3px solid #ffcc00; border-radius:12px; margin-top:10px; display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:20px; }
-    nav a { color:white; text-decoration:none; font-weight:500; transition:color 0.3s; }
-    nav a:hover { color:#ffcc00; }
-    .year-dropdown select, .search-box input { padding:6px 10px; border-radius:8px; border:2px solid #ffcc00; font-family:'Montserrat',sans-serif; font-size:14px; }
-    .year-dropdown select { background:#004080; color:#fff; font-weight:600; }
-    .search-box input { background:#fff; color:#000; }
-    .container { display:flex; flex-wrap:wrap; padding:20px; gap:20px; flex:1; }
-    .card { background:white; border-radius:20px; box-shadow:0 4px 12px rgba(0,0,0,0.15); flex:1; min-width:300px; padding:20px; transition:transform 0.3s ease; display:flex; flex-direction:column; }
-    .card:hover { transform:scale(1.02); }
-    .card h2 { margin-top:0; color:#004080; border-bottom:2px solid #eee; padding-bottom:10px; }
-    #table_div { flex:1; overflow:auto; border-radius:12px; }
-    footer { background:#004080; color:white; text-align:center; padding:15px; margin-top:20px; border-top:5px solid #ffcc00; border-radius:15px; }
+    .page-border { border:10px solid #004080; border-radius:25px; margin:10px; padding:10px; box-shadow:0 0 25px rgba(0,0,0,0.2); min-height:95vh; display:flex; flex-direction:column; }
 
-    /* Custom table styles */
-    .custom-header,
-    .custom-header th,
-    .custom-header td { background:#fdf5e6 !important; color:#000000 !important; font-weight:bold !important; font-size:14px !important; text-align:center; }
-    .custom-table-row { background:#f9f9f9; transition:background 0.3s; }
-    .custom-table-row:nth-child(even) { background:#e6f0ff; }
-    .custom-table-row:hover { background:#ffeb99 !important; cursor:pointer; }
-    .custom-table-selected { background:#ffcc00 !important; color:#004080 !important; }
-    .custom-pagination { background:#004080; color:#fff; padding:5px; border-radius:5px; }
-    .custom-pagination a { color:#ffcc00; margin:0 5px; text-decoration:none; font-weight:bold; }
-    .custom-pagination a:hover { text-decoration:underline; }
+    nav {
+      background:#00264d;
+      padding:10px;
+      border-bottom:3px solid #ffcc00;
+      border-radius:12px;
+      margin-top:10px;
+      display:flex;
+      flex-direction:column; /* stack search and dashboard vertically */
+      align-items:center;    /* center horizontally */
+      gap:15px;              /* spacing between search and dashboard */
+    }
+
+    .search-box { width:100%; max-width:400px; }
+    .search-box input {
+      padding:6px 10px;
+      border-radius:8px;
+      border:2px solid #ffcc00;
+      font-family:'Montserrat',sans-serif;
+      font-size:14px;
+      background:#fff;
+      color:#000;
+      width:100%;
+    }
+
+    nav a {
+      color:white;
+      text-decoration:none;
+      font-weight:bold; /* bold text */
+      font-size:16px;   /* 16px size */
+      transition:color 0.3s;
+    }
+    nav a:hover { color:#ffcc00; }
+
+    .container { display:flex; flex-wrap:wrap; padding:10px; flex:1; }
+    .card { background:white; border-radius:20px; box-shadow:0 4px 12px rgba(0,0,0,0.15); flex:1; min-width:100%; padding:5px; display:flex; flex-direction:column; }
+    #table_div { flex:1; overflow:auto; border-radius:12px; width:100%; }
+
+    footer { background:#004080; color:white; text-align:center; padding:8px; margin-top:10px; border-top:5px solid #ffcc00; border-radius:15px; }
+    footer marquee { font-size:14px; }
 
     .no-results { padding:20px; text-align:center; color:#888; font-style:italic; }
+
+    /* Responsive tweaks */
+    @media (max-width:600px) {
+      .search-box { max-width:100%; }
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
   <div class="page-border">
-    <header>
-      <h1>Office of the Chief Education Officer Pulwama</h1>
-    </header>
 
     <nav>
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="Search in sheet...">
-      </div>
-      <a href="index.html">Status</a>
-      <div class="year-dropdown">
-        <label for="yearSelect" style="color:white; font-weight:600;">2026:</label>
-        <select id="yearSelect">
-          <option value="Fresh-NMMS">Fresh-NMMS</option>
-          <option value="https://renewalnmms.netlify.app/">Renewal-NMMS</option>
-          <option value="ST-9th&10th">ST-9th&10th</option>
-        </select>
-      </div>
-      <a href="about.html">Download</a>
-      <a href="https://dashboardpul.netlify.app/">Dashboard</a>
-      <a href="contact.html">Contact Us</a>
+      </div>  
     </nav>
 
     <div class="container">
       <div class="card">
-        <h2>📊 Live Data (Status)</h2>
         <div id="table_div"></div>
-      </div>
-      <div class="card">
-        <h2>📢 Notice Board</h2>
-        <iframe
-          src="https://docs.google.com/document/d/1i4WhScJPGcsqjEUXakG5PBS-adz43WUL-MI8_36QseQ/preview"
-          style="flex:1; width:100%; min-height:400px; border:none; border-radius:12px;"
-          title="Notice Board">
-        </iframe>
       </div>
     </div>
 
     <footer>
-      <p>&copy; 2026 Eduinfo. All rights reserved.</p>
+      <marquee behavior="scroll" direction="left" scrollamount="6">
+        Thank you for visiting this site
+      </marquee>
     </footer>
   </div>
 
   <script>
-    const SHEET_ID = '1edepUNjcgmPyjKTkYSMN2CXIsaewAd4OvNKQCi2J3XY';
-    const SHEET_TAB = 'Sheet1'; // <-- change this if your tab is named differently
+    const SHEET_ID = '1i6K0N7s5fYeMRaEKzYLjpT103G3dVXFh8SHQoRDymTs';
+    const SHEET_TAB = 'Sheet1';
 
     let dataTable, table;
     const tableDiv = () => document.getElementById('table_div');
@@ -95,19 +92,15 @@
 
     showDiagnostic('Loading Google Charts...');
 
-    // Confirm the loader script itself reached us
     if (typeof google === 'undefined') {
-      showDiagnostic('Failed to load Google Charts library. Check your internet connection or that gstatic.com is not blocked.');
+      showDiagnostic('Failed to load Google Charts library.');
     } else {
       google.charts.load('current', {'packages':['table']});
       google.charts.setOnLoadCallback(drawTable);
 
-      // If drawTable never fires within 8s, something upstream is stuck
       setTimeout(function() {
         if (!dataTable) {
-          showDiagnostic('Still waiting on Google Sheets data after 8 seconds. ' +
-            'Most likely cause: the sheet is not shared as "Anyone with the link – Viewer," ' +
-            'or the tab name "' + SHEET_TAB + '" does not match your actual sheet tab.');
+          showDiagnostic('Still waiting on Google Sheets data after 8 seconds.');
         }
       }, 8000);
     }
@@ -139,18 +132,12 @@
 
     function handleQueryResponse(response) {
       if (response.isError()) {
-        console.error('Google Sheets query error:', response.getMessage(), response.getDetailedMessage());
-        showDiagnostic(
-          '<strong>Could not load sheet data.</strong><br>' +
-          response.getMessage() + ' — ' + response.getDetailedMessage() + '<br><br>' +
-          'Check: (1) the sheet is shared as "Anyone with the link – Viewer", ' +
-          '(2) the tab is actually named "' + SHEET_TAB + '".'
-        );
+        showDiagnostic('Could not load sheet data.');
         return;
       }
       dataTable = response.getDataTable();
       if (!dataTable || dataTable.getNumberOfRows() === 0) {
-        showDiagnostic('Query succeeded but returned zero rows. Check the sheet has data in tab "' + SHEET_TAB + '".');
+        showDiagnostic('No data found.');
         return;
       }
       table = new google.visualization.Table(tableDiv());
@@ -158,17 +145,13 @@
     }
 
     document.getElementById("searchInput").addEventListener("keyup", function() {
-      if (!dataTable || !table) return; // data hasn't loaded yet
-
+      if (!dataTable || !table) return;
       const value = this.value.toLowerCase().trim();
       const tableDiv = document.getElementById('table_div');
-
       if (value === "") {
-        tableDiv.classList.remove('no-results-active');
         table.draw(dataTable, getTableOptions());
         return;
       }
-
       const rows = [];
       for (let i = 0; i < dataTable.getNumberOfRows(); i++) {
         let match = false;
@@ -181,14 +164,10 @@
         }
         if (match) rows.push(i);
       }
-
       if (rows.length === 0) {
-        // Google Charts' Table throws internally on an empty row set,
-        // so handle "no matches" ourselves instead of calling setRows([]).
         tableDiv.innerHTML = '<div class="no-results">No matching results found.</div>';
         return;
       }
-
       const view = new google.visualization.DataView(dataTable);
       view.setRows(rows);
       table.draw(view, getTableOptions());
