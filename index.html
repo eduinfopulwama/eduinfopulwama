@@ -80,7 +80,7 @@
   </div>
 
   <script>
-    const SHEET_ID = '1J2pBi_4IMWlHGbV0lO67syOd1CLfcCao1zqMSy1-ErQ';
+    const SHEET_ID = '1ud9yehUKkfwmWxkD89EMhx_-2hq-CZiZ0Ce1gugzl1U';
     const SHEET_TAB = 'Sheet1';
 
     let dataTable, table;
@@ -90,17 +90,17 @@
       tableDiv().innerHTML = '<div class="no-results">' + html + '</div>';
     }
 
-    showDiagnostic('Loading Aashu Charts...');
+    showDiagnostic('Loading Google Charts...');
 
     if (typeof google === 'undefined') {
-      showDiagnostic('Failed to load Aashu Charts library.');
+      showDiagnostic('Failed to load Google Charts library.');
     } else {
       google.charts.load('current', {'packages':['table']});
       google.charts.setOnLoadCallback(drawTable);
 
       setTimeout(function() {
         if (!dataTable) {
-          showDiagnostic('Still waiting on Aashu Sheets data after 8 seconds.');
+          showDiagnostic('Still waiting on Google Sheets data after 8 seconds.');
         }
       }, 8000);
     }
@@ -123,7 +123,7 @@
     }
 
     function drawTable() {
-      showDiagnostic('Requesting data from Aashu Sheets...');
+      showDiagnostic('Requesting data from Google Sheets...');
       const query = new google.visualization.Query(
         'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?sheet=' + encodeURIComponent(SHEET_TAB)
       );
@@ -132,7 +132,7 @@
 
     function handleQueryResponse(response) {
       if (response.isError()) {
-        showDiagnostic('Could not load data.');
+        showDiagnostic('Could not load sheet data.');
         return;
       }
       dataTable = response.getDataTable();
